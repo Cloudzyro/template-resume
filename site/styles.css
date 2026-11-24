@@ -1,0 +1,575 @@
+/* Fonts are self-hosted (SIL Open Font License, see fonts/). */
+@font-face {
+  font-family: "Newsreader";
+  src: url("fonts/newsreader.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("fonts/newsreader-italic.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/hanken-grotesk.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Change these to restyle the whole page. */
+:root {
+  --backdrop: #e4ded2;
+  --paper: #fbf8f2;
+  --ink: #1b2124;
+  --muted: #5b6468;
+  --line: #e2dccf;
+  --accent: #0e5f5b;
+  --accent-soft: #e2efec;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --backdrop: #0e1113;
+    --paper: #171c1f;
+    --ink: #e8e6e1;
+    --muted: #a0a8ab;
+    --line: #2b3236;
+    --accent: #6cc7bd;
+    --accent-soft: #1d2e2d;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--backdrop);
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding: 1.5rem 1rem 4rem;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in oklab, var(--accent) 60%, transparent);
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  z-index: 10;
+}
+.skip:focus {
+  top: 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Toolbar */
+.toolbar {
+  max-width: 860px;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: 600 0.875rem/1 var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+.btn-primary:hover {
+  color: var(--paper);
+  border-color: var(--accent);
+}
+
+/* The sheet */
+.sheet {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--paper);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.06),
+    0 18px 50px -20px rgb(20 30 30 / 0.35);
+  padding: clamp(1.5rem, 5vw, 3.75rem);
+  position: relative;
+  overflow: hidden;
+}
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent) 0 34%, color-mix(in oklab, var(--accent) 35%, var(--paper)) 34% 100%);
+}
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem 1.5rem;
+  align-items: center;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.monogram {
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font: italic 500 1.6rem/1 var(--serif);
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+}
+h1 {
+  font: 500 clamp(2.1rem, 6vw, 3.25rem) / 1 var(--serif);
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 72;
+}
+.role {
+  margin-top: 0.4rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+.contact {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.contact li {
+  overflow-wrap: anywhere;
+}
+
+.summary {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.summary p {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.55;
+  font-variation-settings: "opsz" 18;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 2.75rem;
+  padding-top: 2rem;
+}
+
+h2 {
+  font: 700 0.75rem/1 var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+section + section {
+  margin-top: 2.25rem;
+}
+
+/* Experience timeline */
+.timeline {
+  position: relative;
+  border-left: 1px solid var(--line);
+  margin-left: 0.3rem;
+}
+.timeline > li {
+  position: relative;
+  padding: 0 0 1.75rem 1.4rem;
+  break-inside: avoid;
+}
+.timeline > li:last-child {
+  padding-bottom: 0;
+}
+.timeline > li::before {
+  content: "";
+  position: absolute;
+  left: -0.36rem;
+  top: 0.35rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+}
+.when {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.timeline h3,
+.projects h3 {
+  margin-top: 0.3rem;
+  font: 600 1.25rem/1.25 var(--serif);
+  letter-spacing: -0.01em;
+}
+.timeline h3 span {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+}
+.where {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.timeline ul {
+  margin-top: 0.6rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.timeline ul li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+}
+.timeline ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.45rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Projects */
+.projects {
+  display: grid;
+  gap: 0.75rem;
+}
+.projects li {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  break-inside: avoid;
+}
+.projects h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+}
+.projects p {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Sidebar */
+.mini {
+  font: 600 0.85rem/1.3 var(--sans);
+  margin: 1rem 0 0.5rem;
+}
+.mini:first-of-type {
+  margin-top: 0;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.tags li {
+  font-size: 0.82rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.facts dt {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.facts dd {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+.facts dd:last-child {
+  margin-bottom: 0;
+}
+
+.contact-block {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+.contact-block p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+}
+.contact-block a {
+  color: var(--accent);
+}
+
+/* Small screens */
+@media (max-width: 720px) {
+  body {
+    padding: 0.75rem 0.5rem 2.5rem;
+  }
+  .columns {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+  .toolbar {
+    justify-content: stretch;
+  }
+  .toolbar .btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+@media (max-width: 420px) {
+  .masthead {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* Print: a clean one or two page CV, always light, no screen decoration. */
+@page {
+  size: letter;
+  margin: 0.55in 0.6in;
+}
+@media print {
+  :root {
+    --paper: #fff;
+    --ink: #111;
+    --muted: #444;
+    --line: #d4d4d4;
+    --accent: #0e5f5b;
+    --accent-soft: #eef4f3;
+    color-scheme: light;
+  }
+  body {
+    background: #fff;
+    padding: 0;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+  /* Contact details are already in the header, so the closing note is left off paper. */
+  .toolbar,
+  .skip,
+  .contact-block {
+    display: none !important;
+  }
+  .sheet {
+    max-width: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .sheet::before {
+    display: none;
+  }
+  .masthead {
+    padding-bottom: 12pt;
+  }
+  .monogram {
+    width: 44pt;
+    height: 44pt;
+    font-size: 17pt;
+  }
+  h1 {
+    font-size: 26pt;
+  }
+  .role {
+    font-size: 12pt;
+  }
+  .contact {
+    font-size: 9pt;
+  }
+  .contact a,
+  .contact-block a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .summary {
+    padding: 12pt 0;
+  }
+  .summary p {
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+  .columns {
+    grid-template-columns: minmax(0, 1fr) 2in;
+    gap: 22pt;
+    padding-top: 14pt;
+  }
+  section + section {
+    margin-top: 16pt;
+  }
+  h2 {
+    margin-bottom: 9pt;
+    font-size: 7.5pt;
+  }
+  .timeline > li {
+    padding-bottom: 11pt;
+  }
+  .timeline h3 {
+    font-size: 12pt;
+  }
+  .timeline ul {
+    margin-top: 4pt;
+    gap: 2pt;
+  }
+  .timeline ul li {
+    font-size: 9.25pt;
+  }
+  .where {
+    font-size: 8.5pt;
+  }
+  .projects {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12pt;
+  }
+  .projects li {
+    border: 0;
+    padding: 0;
+  }
+  .projects h3 {
+    font-size: 11pt;
+    margin: 0;
+  }
+  .projects p,
+  .facts dd {
+    font-size: 8.75pt;
+  }
+  .facts dd {
+    margin-bottom: 6pt;
+  }
+  .tags {
+    gap: 3pt;
+  }
+  .mini {
+    margin: 8pt 0 4pt;
+  }
+  .tags li {
+    font-size: 8.5pt;
+    padding: 1pt 5pt;
+    background: none;
+    border: 0.5pt solid var(--line);
+  }
+  .contact-block {
+    margin-top: 14pt;
+    padding-top: 10pt;
+  }
+  .contact-block p {
+    font-size: 10.5pt;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "template-resume",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A one-page online resume in plain HTML and CSS that prints as a clean CV.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@12.10.1",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "pnpm dlx serve@14.2.4 site",
+    "preview": "pnpm dlx serve@14.2.4 dist"
+  }
+}
